@@ -10,7 +10,7 @@ name                emacs-mac-app
 conflicts           emacs-app emacs-app-devel
 revision            0
 categories          aqua editors
-maintainers         roshanshariff
+maintainers         @roshanshariff
 
 description         Emacs Mac port
 
