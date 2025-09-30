@@ -95,19 +95,22 @@ pre-configure {
 }
 
 subport ${name}-devel {
-    set emacs_version   30.2
+    set emacs_devel_version   30.2
     set date            2025-09-28
 
     github.setup    jdtsmith emacs-mac 35ecf096d230577930bc97fbfe4d6ca7f37baa70
     version         [string map {- {}} ${date}]
     revision        0
 
+    configure.args-replace --enable-mac-app=${workpath}/${github.project}-${emacs_version} \
+                           --enable-mac-app=${worksrcpath}
+
     checksums           rmd160  b49a042daf548c40cc1010c8e943e3bb338a4b51 \
                         sha256  4d82785066de250be99d8b05a2cca8a42c532fa9ce955528e280a7ac3dad66bc \
                         size    53339208
 
     long_description \
-        ${name} is the \"Mac port\" of GNU Emacs ${emacs_version}. \
+        ${name} is the \"Mac port\" of GNU Emacs ${emacs_devel_version}. \
         This provides a native GUI with tight OS integration.
 
     conflicts-prepend   emacs-mac-app
