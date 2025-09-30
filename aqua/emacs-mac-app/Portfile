@@ -207,7 +207,7 @@ variant renameapp description {Rename app bundle to avoid conflict with emacs-ap
     conflicts-delete    emacs-app emacs-app-devel
 }
 
-default_variants-append +nativecomp +treesitter +renameapp
+default_variants-append +nativecomp +treesitter +rsvg +renameapp
 
 if {${subport} eq ${name}} {
     livecheck.regex     {"emacs-mac-([0-9.]+)"}
