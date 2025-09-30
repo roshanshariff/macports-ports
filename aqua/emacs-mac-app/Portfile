@@ -62,6 +62,7 @@ set rpaths [list]
 # The Mac port uses CoreText instead of HarfBuzz
 configure.args      --disable-silent-rules \
                     --with-mac \
+                    --enable-mac-app=${worksrcpath} \
                     --enable-mac-self-contained \
                     --without-dbus \
                     --without-gconf \
@@ -86,8 +87,6 @@ platform darwin {
 }
 
 pre-configure {
-    # Add --enable-mac-app here since ${worksrcpath} changes for -devel subport
-    configure.args-append --enable-mac-app=${worksrcpath}/mac
     if {[llength $rpaths] > 0} {
         configure.ldflags-append "-Wl,-rpath " [join $rpaths " -Wl,-rpath "]
     }
@@ -98,18 +97,20 @@ subport ${name}-devel {
     set date            2024-06-23
 
     version         [string map {- {}} ${date}]
-    revision        0
+    revision        2
 
     long_description \
         ${name} is the \"Mac port\" of GNU Emacs ${emacs_version}. \
         This provides a native GUI with tight OS integration.
 
+    fetch.type      git
+    git.url         --shallow-since=${date}T00:00:00 --branch work https://bitbucket.org/mituharu/emacs-mac.git
     git.branch      7cc5e67629363d9e98f65e4e652f83bb4e0ee674
-    distname        ${git.branch}
 
-    checksums       rmd160  b9c060bf753b037f227aa0d2f90d09975c9fd092 \
-                    sha256  da7ffeef1ba68b428854e57426fb4541b9aeae5f8deebc50db88729a5835790f \
-                    size    50005557
+    # --shallow-since needs a newer version of git than on some older systems,
+    # so use MacPorts version
+    depends_fetch-append port:git
+    git.cmd         ${prefix}/bin/git
 
     conflicts-prepend   emacs-mac-app
 
@@ -127,7 +128,7 @@ destroot.destdir {}
 post-destroot {
     set appname [expr {[variant_isset renameapp] ? "EmacsMac" : "Emacs"}]
 
-    move ${worksrcpath}/mac/Emacs.app ${destroot}${applications_dir}/${appname}.app
+    move ${worksrcpath}/Emacs.app ${destroot}${applications_dir}/${appname}.app
 
     # Install site-start.el
     set site_lisp ${destroot}${applications_dir}/${appname}.app/Contents/Resources/site-lisp
