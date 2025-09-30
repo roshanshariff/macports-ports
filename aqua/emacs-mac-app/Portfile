@@ -20,6 +20,9 @@ long_description    ${name} is the \"Mac port\" of GNU Emacs ${emacs_version}. \
 platforms           {darwin >= 14}
 license             GPL-3+
 
+checksums           rmd160  216578046ac09a58eea58d0d9550ebd01b396d13 \
+                    sha256  d770cd85ada4b566566a1ad7d417268d7cdd72ed284531ca9f768f9d84ed7383 \
+                    size    53303389
 github.tarball_from archive
 
 depends_lib         port:ncurses \
