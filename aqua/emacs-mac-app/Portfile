@@ -104,7 +104,7 @@ subport ${name}-devel {
         This provides a native GUI with tight OS integration.
 
     fetch.type      git
-    git.url         --shallow-since=${date}T00:00:00 --branch work https://bitbucket.org/mituharu/emacs-mac.git
+    git.url         --depth=1 --branch work https://bitbucket.org/mituharu/emacs-mac.git
     git.branch      238d7188c32a8d8308be577cb477edef7125a68b
 
     # --shallow-since needs a newer version of git than on some older systems,
